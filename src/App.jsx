@@ -68,32 +68,80 @@ const DayOne = ({ nodeRef }) => {
 };
 
 DayOne.propTypes = {
-  nodeRef: PropTypes.object.isRequired,
+  nodeRef: PropTypes.object,
 };
 
-const DayTwo = () => {
+DayOne.defaultProps = {
+  nodeRef: { current: document.createElement('article') },
+};
+
+const DayTwo = ({ nodeRef }) => {
+  const [rect] = nodeRef.current.getClientRects();
+
   return (
-    <Page subTitle="केरा" title="Day 2" picture={storyPicture}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo
-      nulla facilisi. Eget sit amet tellus cras adipiscing enim eu turpis.
-    </Page>
+    <motion.div
+      initial={{
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y,
+      }}
+      animate={{ width: '100vw', height: '100vh', x: 0, y: 0 }}
+      transition={{ duration: 1, type: 'tween' }}
+    >
+      <Page subTitle="केरा" title="Day 2" picture={storyPicture}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet
+        commodo nulla facilisi. Eget sit amet tellus cras adipiscing enim eu
+        turpis.
+      </Page>
+    </motion.div>
   );
 };
 
-const DayThree = () => {
+DayTwo.propTypes = {
+  nodeRef: PropTypes.object,
+};
+
+DayTwo.defaultProps = {
+  nodeRef: { current: document.createElement('article') },
+};
+
+const DayThree = ({ nodeRef }) => {
+  const [rect] = nodeRef.current.getClientRects();
+
   return (
-    <Page subTitle="केरा" title="Day 3" picture={storyPicture}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo
-      nulla facilisi. Eget sit amet tellus cras adipiscing enim eu turpis.
-    </Page>
+    <motion.div
+      initial={{
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y,
+      }}
+      animate={{ width: '100vw', height: '100vh', x: 0, y: 0 }}
+      transition={{ duration: 1, type: 'tween' }}
+    >
+      <Page subTitle="केरा" title="Day 3" picture={storyPicture}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet
+        commodo nulla facilisi. Eget sit amet tellus cras adipiscing enim eu
+        turpis.
+      </Page>
+    </motion.div>
   );
+};
+
+DayThree.propTypes = {
+  nodeRef: PropTypes.object,
+};
+
+DayThree.defaultProps = {
+  nodeRef: { current: document.createElement('article') },
 };
 
 const Hero = () => {
   return (
-    <div className={classes.hero}>
+    <div id="hero" className={classes.hero}>
       <img src={heroPicture} alt="mountains" />
     </div>
   );
@@ -125,12 +173,6 @@ const StoryWithRef = React.forwardRef(Story);
 const MainPage = (props, ref) => {
   return (
     <>
-      {/* <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 3, type: 'tween' }}
-      > */}
       <Hero />
       <main className={classes.main}>
         <Link to={'/day-1'}>
@@ -146,25 +188,34 @@ const MainPage = (props, ref) => {
             enim eu turpis.
           </StoryWithRef>
         </Link>
-        {/* <Link to={'/day-2'}>
-          <Story subTitle="केरा" title="Day 2" picture={storyPicture}>
+        <Link to={'/day-2'}>
+          <StoryWithRef
+            ref={ref}
+            subTitle="केरा"
+            title="Day 2"
+            picture={storyPicture}
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit
             amet commodo nulla facilisi. Eget sit amet tellus cras adipiscing
             enim eu turpis.
-          </Story>
+          </StoryWithRef>
         </Link>
         <Link to={'/day-3'}>
-          <Story subTitle="केरा" title="Day 3" picture={storyPicture}>
+          <StoryWithRef
+            ref={ref}
+            subTitle="केरा"
+            title="Day 3"
+            picture={storyPicture}
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit
             amet commodo nulla facilisi. Eget sit amet tellus cras adipiscing
             enim eu turpis.
-          </Story>
-        </Link> */}
+          </StoryWithRef>
+        </Link>
       </main>
       <footer style={{ background: 'pink' }}></footer>
-      {/* </motion.div> */}
     </>
   );
 };
@@ -172,25 +223,47 @@ const MainPage = (props, ref) => {
 const MainPageWithRef = React.forwardRef(MainPage);
 
 const App = () => {
-  const nodeRef = React.useRef();
+  const dayOneRef = React.useRef();
+  const dayTwoRef = React.useRef();
+  const dayThreeRef = React.useRef();
 
   const setRef = (element) => {
     const isComponentMounting = !!element;
-    console.log('SETREF CALLED', element);
+    console.log('SETREF CALLED', element.id);
     if (isComponentMounting) {
-      nodeRef.current = element;
+      if (element.id === 'story-day-one') {
+        dayOneRef.current = element;
+      } else if (element.id === 'story-day-two') {
+        dayTwoRef.current = element;
+      } else {
+        dayThreeRef.current = element;
+      }
     }
   };
 
   return (
-    <AnimatePresence>
-      <Routes>
-        <Route index element={<MainPageWithRef ref={setRef} />} />
-        <Route path="/day-1" element={<DayOne nodeRef={nodeRef} />} />
-        <Route path="/day-2" element={<DayTwo />} />
-        <Route path="/day-3" element={<DayThree />} />
-      </Routes>
-    </AnimatePresence>
+    <Routes>
+      <Route
+        index
+        element={
+          <AnimatePresence>
+            <motion.div
+              key={'main-page'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, type: 'tween' }}
+            >
+              <MainPageWithRef ref={setRef} />
+            </motion.div>
+          </AnimatePresence>
+        }
+      />
+
+      <Route path="/day-1" element={<DayOne nodeRef={dayOneRef} />} />
+      <Route path="/day-2" element={<DayTwo />} />
+      <Route path="/day-3" element={<DayThree />} />
+    </Routes>
   );
 };
 
