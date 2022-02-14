@@ -31,7 +31,6 @@ const DayOne = () => {
             amet commodo nulla facilisi. Eget sit amet tellus cras adipiscing
             enim eu turpis.
           </p>
-          <p>Read Story</p>
         </div>
         <Link to="/">Back</Link>
       </div>
