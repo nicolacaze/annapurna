@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import storyPicture from '../../static/cam-adams.jpg';
+import Journal from './journal.mdx';
 
 import * as classes from '../../style.module.scss';
 
@@ -25,12 +26,7 @@ const DayOne = () => {
           <hr className={classes.divider} />
         </div>
         <div className="content__text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit
-            amet commodo nulla facilisi. Eget sit amet tellus cras adipiscing
-            enim eu turpis.
-          </p>
+          <Journal />
         </div>
         <Link to="/">Back</Link>
       </div>

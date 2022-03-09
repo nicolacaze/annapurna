@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import storyPicture from '../../static/cam-adams.jpg';
-import Hello from './hello.mdx';
+import Journal from './journal.mdx';
 
 import * as classes from '../../style.module.scss';
 
@@ -24,15 +24,9 @@ const DayOne = () => {
           <h4>Day 1</h4>
           <h2>केरा</h2>
           <hr className={classes.divider} />
-          <Hello />
         </div>
         <div className="content__text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit
-            amet commodo nulla facilisi. Eget sit amet tellus cras adipiscing
-            enim eu turpis.
-          </p>
+          <Journal />
         </div>
         <Link to="/">Back</Link>
       </div>
