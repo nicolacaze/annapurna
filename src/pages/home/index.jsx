@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import Hero from '../../components/Hero';
 import Story from '../../components/Story';
-import storyPicture from '../../static/cam-adams.jpg';
 import { pictures } from '../../assets';
 
 import * as classes from '../../style.module.scss';
