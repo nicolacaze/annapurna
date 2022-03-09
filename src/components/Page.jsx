@@ -31,7 +31,7 @@ const Page = ({ children, picture, day, subtitle }) => {
 };
 
 Page.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.object,
   picture: PropTypes.string,
   day: PropTypes.string,
   subtitle: PropTypes.string,
