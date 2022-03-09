@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-import storyPicture from '../../static/cam-adams.jpg';
+import { pictures } from '../../assets';
 
 import * as classes from '../../style.module.scss';
 
@@ -16,7 +16,7 @@ const DayOne = () => {
       className={classes.page}
     >
       <div className={classes.image__container}>
-        <img src={storyPicture} alt="story-picture" />
+        <img src={pictures.dayThree} alt="story-picture" />
       </div>
       <div className={classes.story__content}>
         <div className="content__title">
